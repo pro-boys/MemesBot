@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 
 API_PATH = Path('api')
-TEMPLATE = Path('')
+TEMPLATE = Path('template')
 RESULTS = Path("gotgrambot")
 
 TG_CORE_TYPES = {
