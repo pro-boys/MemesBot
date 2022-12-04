@@ -4,7 +4,7 @@ from pathlib import Path
 
 API_PATH = Path('api')
 TEMPLATE = Path('template')
-RESULTS = Path("gotgrambot")
+RESULTS = Path("")
 
 TG_CORE_TYPES = {
     "String": 'string',
