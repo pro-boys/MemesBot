@@ -1,0 +1,38 @@
+on:
+  workflow_dispatch: {} # Allow manually kicking off builds
+  schedule:
+    - cron:  '0 12 * * *' # Every day at 12:00 (noon). Ref https://crontab.guru/examples.html
+name: GoTgramBot
+jobs:
+  build:
+    name: GoTGramBot
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: >
+        pip install --upgrade pip setuptools wheel
+        pip install -r requirements.txt
+    - name: Generate go files
+      run: python build.py
+
+    - name: Open Pull Request
+      uses: peter-evans/create-pull-request@v4
+      with:
+        commit-message: >
+          Regenerate bot API docs.
+        title: >
+          Update bot API docs based on the latest changes
+        body: >
+          This is an automated PR. Please check the diff, and the action logs, to check for any funky behaviour.
+        branch: automated/bot-api-update
+        reviewers: Anandpskerala
+        assignees: Anandpskerala
+        labels: automated
+        delete-branch: true
